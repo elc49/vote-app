@@ -22,6 +22,7 @@ app.get('/', function (req, res) {
 app.use('/public', express.static(process.cwd() + '/public'));
 app.use('/config', express.static(process.cwd() + '/config'));
 app.use('/controllers', express.static(process.cwd() + '/controllers'));
+app.use('/semantic', express.static(process.cwd() + '/semantic'));
 
 //Body parser Middleware
 app.use(bodyParser.json());
