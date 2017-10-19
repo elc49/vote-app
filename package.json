@@ -1,0 +1,19 @@
+{
+  "name": "vote-app",
+  "version": "1.0.0",
+  "description": "freecodecamp voting app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3dw1nM0535/vote-app.git"
+  },
+  "author": "Edwin Moses",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/3dw1nM0535/vote-app/issues"
+  },
+  "homepage": "https://github.com/3dw1nM0535/vote-app#readme"
+}
