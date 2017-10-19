@@ -2,7 +2,12 @@
 
 var express =require('express');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 var routes = require('./routes/index');
+
+//connection to database
+mongoose.connect('mongodb://127.0.0.1:27017/votes', { useMongoClient: true });
+
 
 //Instantiate express object
 var app = express();
@@ -26,6 +31,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //Server init
-app.listen(3000, function () {
-  console.log('Server running on port 3000!');
+var port = 8080;
+app.listen(port, function () {
+  console.log('Server running on port ' + port + '!');
 });
