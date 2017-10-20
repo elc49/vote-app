@@ -4,20 +4,34 @@ var express =require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var routes = require('./routes/index');
-
-//connection to database
-mongoose.connect('mongodb://127.0.0.1:27017/votes', { useMongoClient: true });
+var passport = require('passport');
+var session = require('express-session');
 
 
 //Instantiate express object
 var app = express();
 
-//Route Middleware
-routes(app);
-
 //View Middleware
 app.set('views', process.cwd() + '/views');
 app.set('view engine', 'ejs');
+
+//Session Middleware
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
+
+//Passport Init modules
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Route Middleware
+routes(app, passport);
+require('dotenv').load();
+require('./config/passport')(passport);
+
 
 
 //Static files Middleware
@@ -30,8 +44,14 @@ app.use('/semantic', express.static(process.cwd() + '/semantic'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+//connection to database
+mongoose.connect(process.env.MONGO_URI, { useMongoClient: true });
+
+//mongoose deprecated promise Middleware
+mongoose.Promise = global.Promise;
+
 //Server init
-var port = 8080;
+var port = process.env.PORT || 3000;
 app.listen(port, function () {
   console.log('Server running on port ' + port + '!');
 });
