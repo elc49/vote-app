@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var UserSchema= new Schema({
+var UserSchema = new Schema({
   twitter: {
     id: String,
     displayName: String,
