@@ -1,6 +1,6 @@
 //Import necessary modules for our server
 
-var express =require('express');
+var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var routes = require('./routes/index');
@@ -20,7 +20,9 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }
+  cookie: {
+    secure: false
+  }
 }));
 
 //Passport Init modules
@@ -42,16 +44,20 @@ app.use('/semantic', express.static(process.cwd() + '/semantic'));
 
 //Body parser Middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 //connection to database
-mongoose.connect(process.env.MONGO_URI, { useMongoClient: true });
+mongoose.connect(process.env.MONGO_URI, {
+  useMongoClient: true
+});
 
 //mongoose deprecated promise Middleware
 mongoose.Promise = global.Promise;
 
 //Server init
 var port = process.env.PORT || 3000;
-app.listen(port, function () {
+app.listen(port, function() {
   console.log('Server running on port ' + port + '!');
 });
