@@ -16,7 +16,9 @@ module.exports = function(app, passport) {
 
   //Home route if req.isAuthenticated()
   app.route('/').get(function(req, res) {
-    res.render('index', {user: req.user});
+    res.render('index', {
+      user: req.user
+    });
   });
 
   //Login route if !req.isAuthenticated()
@@ -24,7 +26,7 @@ module.exports = function(app, passport) {
     res.render('/login', voteHandler.getVotes);
   });
 
-  //Logout route handler
+  //Log out route handler
   app.route('/logout').get(function(req, res) {
     req.logout();
     res.redirect('/');
