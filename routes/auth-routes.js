@@ -6,7 +6,8 @@ var passport = require('passport');
 
 //logout handler
 router.get('/logout', function (req, res) {
-  res.send('Logout route');
+  req.logout();
+  res.redirect('/');
 });
 
 //Twitter auth route
