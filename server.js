@@ -6,12 +6,23 @@ var mongoose = require('mongoose');
 var routes = require(process.cwd() + '/routes/index');
 var auth = require(process.cwd() + '/routes/auth-routes');
 var profile = require(process.cwd() + '/routes/profile-route');
+var passportSetup = require(process.cwd() + '/config/passport');
 //var passport = require('passport');
-//var session = require('cookie-session');
+var session = require('cookie-session');
 
 
 //Instantiate express object
 var app = express();
+
+//dontenv init
+require('dotenv').config();
+
+//session Middleware
+app.use(session({
+  keys: ['3dw1nM0535'],
+  maxAge: 24 * 60 * 60 * 100
+}));
+
 
 //View Middleware
 app.set('views', process.cwd() + '/views');
@@ -30,10 +41,6 @@ app.use('/profile', profile);
 app.get('/', function (req, res){
   res.render('home');
 });
-
-//dontenv init
-require('dotenv').config();
-
 
 
 //Static files Middleware
