@@ -10,24 +10,42 @@
   </head>
   <body>
 
-    <!-- Nav Element -->
+        <!-- Nav Element -->
 
-    <div class="ui  large menu outer">
-      <a class="item" href="/">
-        Home
-      </a>
-      <a class="item" href="/polls/newPoll">
-        New Poll
-      </a>
-      <a class="item" href="/polls/myPolls">
-        My Polls
-      </a>
-      <div class="right menu">
-        <a class="item" href="/auth/logout">
-          Logout
-        </a>
-      </div>
-    </div>
+          <% if (user) { %>
+      
+            <div class="ui large menu outer">
+              <a class="item" href="/">
+                Home
+              </a>
+              <a class="item" href="/polls/newPoll">
+                New Poll
+              </a>
+              <a class="item" href="/polls/myPoll">
+                My Polls
+              </a>
+              <div class="right menu">
+                <a class="item" href="/auth/logout">
+                  Logout
+                </a>
+              </div>
+            </div>
+      
+            <% } else { %>
+      
+              <div class="ui large menu outer">
+                <a class="item" href="/">
+                  Home  
+                </a>
+                <div class="right menu">
+                  <a class="item" href="/auth/twitter">
+                    Sign In with Twitter
+                  </a>
+                </div>
+              </div>
+      
+              <% } %>
+      
 
   
     <script type="text/javascript" src="/controllers/clientHandler.js"></script> 
