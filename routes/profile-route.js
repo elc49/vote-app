@@ -14,7 +14,7 @@ var validateUser = function (req, res, next) {
 router.get('/', validateUser, function (req, res) {
 
   //decoding and encoding function
-  
+
   var base64 = exports; 
   base64.encode = function (unencoded) {
     return new Buffer(unencoded || '').toString('base64');
@@ -24,7 +24,7 @@ router.get('/', validateUser, function (req, res) {
     return new Buffer(encoded || '', base64).toString('utf8');
   };
 
-  console.log(base64.decode(req.user.img.data));
+  //console.log(base64.decode(req.user.img.data));
 
   res.render('profile', { user: req.user, img: base64.decode(req.user.img.data) });
 
