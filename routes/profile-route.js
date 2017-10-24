@@ -13,7 +13,8 @@ var validateUser = function (req, res, next) {
 
 router.get('/', validateUser, function (req, res) {
 
-
+  //decoding and encoding function
+  
   var base64 = exports; 
   base64.encode = function (unencoded) {
     return new Buffer(unencoded || '').toString('base64');
