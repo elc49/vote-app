@@ -4,13 +4,11 @@ var passport = require('passport');
 var TwitterStrategy = require('passport-twitter').Strategy;
 var keys = require(process.cwd() + '/config/auth');
 var User = require(process.cwd() + '/models/model');
-var key = process.env.CONSUMER_KEY;
-var secret = process.env.CONSUMER_SECRET;
 
 //serializeUser()/deserializeUser() user Middleware
-/*
+
 passport.serializeUser(function (user, done) {
-  done(null, done);
+  done(null, user.id);
 });
 
 passport.deserializeUser(function (id, done) {
@@ -18,7 +16,7 @@ passport.deserializeUser(function (id, done) {
     done(null, user);
   });
 });
-*/
+
 //Setup passport Middleware
 passport.use(
   new TwitterStrategy ({
@@ -27,7 +25,32 @@ passport.use(
     callbackURL: keys.twitter.callbackURL
 
   }, function (token, tokenSecret, profile, done) {
-    console.log(profile);
+    process.nextTick(function () {
+      User.findOne({ '_id': profile.id }, function (err, user) {
+        if (err) {
+          throw err;
+        }
+
+        if (user) {
+          return done(null, user);
+        } else {
+
+          var newUser = new User();
+
+          newUser._id = profile.id;
+          newUser.username = profile.username;
+          newUser.displayName = profile._json.name;
+
+          newUser.save(function (err) {
+            if (err) {
+              throw err;
+            }
+            console.log(newUser);
+            return done(null, newUser);
+          });
+        }
+      });
+    });
   })
 );
 
