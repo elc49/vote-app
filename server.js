@@ -19,8 +19,11 @@ app.set('view engine', 'ejs');
 //app.use(passport.session());
 
 //Route Middleware
-//app.use('/polls', routes);
+app.use('/polls', routes);
 
+app.get('/', function (req, res){
+  res.render('home');
+});
 
 //dontenv init
 require('dotenv').config();
@@ -28,8 +31,6 @@ require('dotenv').config();
 
 
 //Static files Middleware
-app.use('/public', express.static(process.cwd() + '/public'));
-app.use('/config', express.static(process.cwd() + '/config'));
 app.use('/controllers', express.static(process.cwd() + '/controllers'));
 app.use('/semantic', express.static(process.cwd() + '/semantic'));
 
