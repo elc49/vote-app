@@ -7,6 +7,7 @@ var routes = require(process.cwd() + '/routes/index');
 var auth = require(process.cwd() + '/routes/auth-routes');
 var profile = require(process.cwd() + '/routes/profile-route');
 //var passport = require('passport');
+//var session = require('cookie-session');
 
 
 //Instantiate express object
