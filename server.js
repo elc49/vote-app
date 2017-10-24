@@ -19,11 +19,11 @@ app.set('view engine', 'ejs');
 //app.use(passport.session());
 
 //Route Middleware
-app.use('/polls', routes);
+//app.use('/polls', routes);
 
 
 //dontenv init
-//require('dotenv').load();
+require('dotenv').config();
 
 
 
