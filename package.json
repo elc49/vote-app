@@ -18,10 +18,10 @@
   "homepage": "https://github.com/3dw1nM0535/vote-app#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "cookie-session": "^2.0.0-beta.3",
     "dotenv": "^4.0.0",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
-    "express-session": "^1.15.6",
     "mongoose": "^4.12.3",
     "passport": "^0.4.0",
     "passport-twitter": "^1.0.4",

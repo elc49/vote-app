@@ -4,8 +4,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var routes = require('./routes/index');
-var passport = require('passport');
-var session = require('express-session');
+//var passport = require('passport');
 
 
 //Instantiate express object
@@ -15,24 +14,16 @@ var app = express();
 app.set('views', process.cwd() + '/views');
 app.set('view engine', 'ejs');
 
-//Session Middleware
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    secure: false
-  }
-}));
-
 //Passport Init modules
-app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.initialize());
+//app.use(passport.session());
 
 //Route Middleware
-routes(app, passport);
-require('dotenv').load();
-require('./config/passport')(passport);
+app.use('/polls', routes);
+
+
+//dontenv init
+//require('dotenv').load();
 
 
 
@@ -51,13 +42,14 @@ app.use(bodyParser.urlencoded({
 //connection to database
 mongoose.connect(process.env.MONGO_URI, {
   useMongoClient: true
+}, function () {
+  console.log('Coonection to db successfull!');
 });
 
 //mongoose deprecated promise Middleware
 mongoose.Promise = global.Promise;
 
 //Server init
-var port = process.env.PORT || 3000;
-app.listen(port, function() {
-  console.log('Server running on port ' + port + '!');
+app.listen(8080, function () {
+  console.log('Listening on port 8080');
 });
