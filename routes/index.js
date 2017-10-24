@@ -1,18 +1,18 @@
 var router = require('express').Router();
 
-//Home route handler
+//home route handler
 router.get('/', function (req, res) {
-  res.send('Home route');
+  res.render('home', { user: req.user });
 });
 
 //new poll route handler
 router.get('/newPoll', function (req, res) {
-  res.render('newPoll');
+  res.render('newPoll', { user: req.user });
 });
 
 //my polls route handler
-router.get('/myPolls', function (req, res) {
-  res.send('This is my polls route');
+router.get('/myPoll', function (req, res) {
+  res.render('myPoll', { user: req.user });
 });
 
 
