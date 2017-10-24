@@ -34,18 +34,19 @@ passport.use(
         if (user) {
           return done(null, user);
         } else {
-
           var newUser = new User();
 
           newUser._id = profile.id;
           newUser.username = profile.username;
-          newUser.displayName = profile._json.name;
+          newUser.displayName = profile.displayName;
+          newUser.img.data = profile.photos[0].value;
+          newUser.img.contentType = 'jgp';
 
           newUser.save(function (err) {
             if (err) {
               throw err;
             }
-            console.log(newUser);
+
             return done(null, newUser);
           });
         }
