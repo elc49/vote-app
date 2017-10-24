@@ -3,7 +3,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var routes = require('./routes/index');
+var routes = require(process.cwd() + '/routes/index');
+var auth = require(process.cwd() + '/routes/auth-routes');
+var profile = require(process.cwd() + '/routes/profile-route');
 //var passport = require('passport');
 
 
@@ -20,6 +22,9 @@ app.set('view engine', 'ejs');
 
 //Route Middleware
 app.use('/polls', routes);
+app.use('/auth', auth);
+app.use('/profile', profile);
+
 
 app.get('/', function (req, res){
   res.render('home');
