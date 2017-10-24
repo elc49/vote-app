@@ -1,11 +1,8 @@
 //Authentication route handler
 
 var router = require('express').Router();
+var passport = require('passport');
 
-//login route
-router.get('/login', function (req, res) {
-  res.send('Login route');
-});
 
 //logout handler
 router.get('/logout', function (req, res) {
@@ -13,10 +10,16 @@ router.get('/logout', function (req, res) {
 });
 
 //Twitter auth route
-router.get('/twitter');
+router.get('/twitter', passport.authenticate('twitter'));
+
 
 //twitter callback route handler
-router.get('/twitter/callback');
+router.get('/twitter/callback', passport.authenticate('twitter', {
+  failureRedirect: '/'
+}), function (req, res) {
+  //Success authentication, redirect home
+  res.redirect('/profile');
+});
 
 
 module.exports = router;
