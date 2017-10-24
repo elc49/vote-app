@@ -4,6 +4,8 @@ var passport = require('passport');
 var TwitterStrategy = require('passport-twitter').Strategy;
 var keys = require(process.cwd() + '/config/auth');
 var User = require(process.cwd() + '/models/model');
+var key = process.env.CONSUMER_KEY;
+var secret = process.env.CONSUMER_SECRET;
 
 //serializeUser()/deserializeUser() user Middleware
 /*
