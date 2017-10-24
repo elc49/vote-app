@@ -6,5 +6,8 @@
     'font-family': 'Ubuntu',
     'font-weight': 200
   });
+  $('.twitter').css({
+    'font-size': '1.50rem'
+  });
 
 })();
