@@ -7,7 +7,7 @@ var routes = require(process.cwd() + '/routes/index');
 var auth = require(process.cwd() + '/routes/auth-routes');
 var profile = require(process.cwd() + '/routes/profile-route');
 var passportSetup = require(process.cwd() + '/config/passport');
-//var passport = require('passport');
+var passport = require('passport');
 var session = require('cookie-session');
 
 
@@ -29,18 +29,14 @@ app.set('views', process.cwd() + '/views');
 app.set('view engine', 'ejs');
 
 //Passport Init modules
-//app.use(passport.initialize());
-//app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Route Middleware
+app.use('/', routes);
 app.use('/polls', routes);
 app.use('/auth', auth);
 app.use('/profile', profile);
-
-
-app.get('/', function (req, res){
-  res.render('home');
-});
 
 
 //Static files Middleware
