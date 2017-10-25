@@ -25,27 +25,20 @@
                 My Polls
               </a>
               <div class="right menu">
-                <div class="ui dropdown item">
-                  <span><img class="ui avatar image" src=<%= img %> /></span>
-                  <i class="dropdown icon"></i>
-                  <div class="menu">
-                    <div class="header"><%= user.displayName %></div>
-                    <a class="item" href="/auth/logout">
-                      Logout
-                    </a>
-                  </div>
-                </div>
+                <a class="ui button negative" href="/auth/logout">
+                  Logout
+                </a>
               </div>
             </div>
 
             <% } else { %>
 
               <div class="ui large menu outer">
-                <a class="item" href="/">
+                <a class="item" href="/polls">
                   Home
                 </a>
                 <div class="right menu">
-                  <a class="item" href="/auth/twitter">
+                  <a class="ui button positive" href="/auth/twitter">
                     Sign In with Twitter
                   </a>
                 </div>
