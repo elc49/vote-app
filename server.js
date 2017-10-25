@@ -48,7 +48,7 @@ app.use(bodyParser.urlencoded({
 mongoose.connect(process.env.MONGO_URI, {
   useMongoClient: true
 }, function () {
-  console.log('Coonection to db successfull!');
+  console.log('Connection to db successfull!');
 });
 
 app.get('/', function (req, res) {
