@@ -5,39 +5,54 @@ var decoder = require(process.cwd() + '/controllers/serverHandler');
 var base64 = new decoder();
 
 //ensure user isAuthenticated() Middleware
+function ensureAuthenticated(req, res, next) {
 
-var ensureAuthenticated = function (req, res, next) {
-  if (req.isAuthenticated()) {
-    next();
+  if (!req.isAuthenticated()) {
+    res.redirect('/');
   } else {
+
+    next();
+  }
+}
+
+function unAuthenticated(req, res, next) {
+
+  if (req.isUnAuthenticated()) {
     res.redirect('/');
   }
-};
 
-//home route handler
-router.get('/', function (req, res) {
+}
+
+//home route
+router.get('/', function(req, res) {
 
   res.render('polls', {
     user: req.user,
+
   });
+
 });
 
 //new poll route handler
-router.get('/newPoll', ensureAuthenticated, function (req, res) {
+router.get('/newPoll', ensureAuthenticated, function(req, res) {
 
   res.render('newPoll', {
     user: req.user,
     img: base64.decode(req.user.img.data)
+
   });
+
 });
 
 //my polls route handler
-router.get('/myPoll', ensureAuthenticated, function (req, res) {
+router.get('/myPoll', ensureAuthenticated, function(req, res) {
 
   res.render('myPoll', {
     user: req.user,
     img: base64.decode(req.user.img.data)
+
   });
+
 });
 
 
