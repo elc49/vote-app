@@ -9,7 +9,6 @@ var passportSetup = require(process.cwd() + '/config/passport');
 var passport = require('passport');
 var session = require('cookie-session');
 
-
 //Instantiate express object
 var app = express();
 
@@ -32,7 +31,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Route Middleware
-app.use('/', routes);
 app.use('/polls', routes);
 app.use('/auth', auth);
 
@@ -51,6 +49,10 @@ mongoose.connect(process.env.MONGO_URI, {
   useMongoClient: true
 }, function () {
   console.log('Coonection to db successfull!');
+});
+
+app.get('/', function (req, res) {
+  res.render('home');
 });
 
 //mongoose deprecated promise Middleware
