@@ -15,14 +15,6 @@ function ensureAuthenticated(req, res, next) {
   }
 }
 
-function unAuthenticated(req, res, next) {
-
-  if (req.isUnAuthenticated()) {
-    res.redirect('/');
-  }
-
-}
-
 //home route
 router.get('/', function(req, res) {
 
