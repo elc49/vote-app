@@ -19,7 +19,7 @@ router.get('/twitter/callback', passport.authenticate('twitter', {
   failureRedirect: '/'
 }), function (req, res) {
   //Success authentication, redirect home
-  res.redirect('/profile');
+  res.redirect('/');
 });
 
 
