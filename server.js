@@ -52,8 +52,6 @@ mongoose.connect(process.env.MONGO_URI, {
   console.log('Connection to db successfull!');
 });
 
-
-
 //mongoose deprecated promise Middleware
 mongoose.Promise = global.Promise;
 
