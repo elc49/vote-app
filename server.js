@@ -41,7 +41,6 @@ app.use('/profile', profile);
 
 //Static files Middleware
 app.use('/controllers', express.static(process.cwd() + '/controllers'));
-app.use('/semantic', express.static(process.cwd() + '/semantic'));
 
 //Body parser Middleware
 app.use(bodyParser.json());
