@@ -5,7 +5,6 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var routes = require(process.cwd() + '/routes/index');
 var auth = require(process.cwd() + '/routes/auth-routes');
-var profile = require(process.cwd() + '/routes/profile-route');
 var passportSetup = require(process.cwd() + '/config/passport');
 var passport = require('passport');
 var session = require('cookie-session');
@@ -36,7 +35,6 @@ app.use(passport.session());
 app.use('/', routes);
 app.use('/polls', routes);
 app.use('/auth', auth);
-app.use('/profile', profile);
 
 
 //Static files Middleware
