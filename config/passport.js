@@ -22,7 +22,7 @@ passport.use(
   new TwitterStrategy ({
     consumerKey: 'U9VEjGV6DhGLDzlYklvkLgE3j',
     consumerSecret: 'AVjtxIh9x0p54QdjDAIIqcm41TudkYoyqvJsOneML4MR6299JP',
-    callbackURL: 'https://opinion-polling.herokuapp.com/auth/twitter/callback'
+    callbackURL: process.env.CALLBACK_URI
 
   }, function (token, tokenSecret, profile, done) {
     process.nextTick(function () {
