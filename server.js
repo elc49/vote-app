@@ -31,6 +31,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Route Middleware
+app.use('/', routes);
 app.use('/polls', routes);
 app.use('/auth', auth);
 
@@ -51,9 +52,7 @@ mongoose.connect(process.env.MONGO_URI, {
   console.log('Connection to db successfull!');
 });
 
-app.get('/', function (req, res) {
-  res.render('home');
-});
+
 
 //mongoose deprecated promise Middleware
 mongoose.Promise = global.Promise;
