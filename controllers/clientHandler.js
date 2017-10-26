@@ -28,4 +28,10 @@
 
   $('.ui.dropdown').dropdown();
 
+  $('form').css({
+    'width': '50rem',
+    'margin-top': '3rem'
+  });
+
+
 })();
