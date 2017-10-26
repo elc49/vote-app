@@ -11,6 +11,7 @@ var UserSchema = new Schema({
   _id: String,
   username: String,
   displayName: String,
+  title: String,
   options: [String],
   votes: [String]
 }); 
