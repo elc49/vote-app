@@ -26,6 +26,12 @@ app.use(session({
 app.set('views', process.cwd() + '/views');
 app.set('view engine', 'ejs');
 
+//Body parser Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+
 //Passport Init modules
 app.use(passport.initialize());
 app.use(passport.session());
@@ -39,11 +45,6 @@ app.use('/auth', auth);
 //Static files Middleware
 app.use('/controllers', express.static(process.cwd() + '/controllers'));
 
-//Body parser Middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
 
 //connection to database
 mongoose.connect(process.env.MONGO_URI, {
