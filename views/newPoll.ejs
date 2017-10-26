@@ -30,6 +30,20 @@
                 </div>
             </div>
 
+            <div class="ui container">
+              <form class="ui form" method="POST" action="/polls/newPoll">
+                <div class="field">
+                  <label>Title</label>
+                  <input type="text" id="input" name="title" placeholder="Enter your opinion title or vote title" />
+                </div>
+                <div class="field">
+                  <label>Options</label>
+                  <textarea placeholder="Enter your vote options or opinion options" name="options"></textarea>
+                </div>
+                <button class="ui button positive small" type="submit">Create</button>
+              </form>
+            </div>
+
             <% } else { %>
 
               <div class="ui large menu outer">
