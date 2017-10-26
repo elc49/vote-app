@@ -1,6 +1,6 @@
 var router = require('express').Router();
 var decoder = require(process.cwd() + '/controllers/serverHandler');
-//var ensureAuthenticated = require(process.cwd() + '/controllers/serverHandler');
+var User = require(process.cwd() + '/models/model');
 
 var base64 = new decoder();
 
@@ -22,6 +22,7 @@ router.get('/', function(req, res) {
     user: req.user,
 
   });
+  //console.log(req.user);
 
 });
 
@@ -36,14 +37,15 @@ router.get('/newPoll', ensureAuthenticated, function(req, res) {
 });
 
 //new poll post route handler
-router.post('/newPoll', function (req, res) {
+router.post('/newPoll', ensureAuthenticated, function (req, res) {
 
-  var vote = {
-    title: req.body.title,
-    options: req.body.options
-  };
+  User.findOneAndUpdate({ '_id': req.user._id }, {'options': req.body.options , 'title': req.body.title }).exec(function (err, result) {
+      if (err) {
+        throw err;
+      }
+      console.log(result);
+    });
 
-  console.log(vote);
 
   res.redirect('/');
 });
