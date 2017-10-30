@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var routes = require(process.cwd() + '/routes/index');
 var auth = require(process.cwd() + '/routes/auth-routes');
+var home = require(process.cwd() + '/routes/home');
 var passportSetup = require(process.cwd() + '/config/passport');
 var passport = require('passport');
 var session = require('cookie-session');
@@ -37,7 +38,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Route Middleware
-app.use('/', routes);
+app.use('/', home);
 app.use('/polls', routes);
 app.use('/auth', auth);
 
