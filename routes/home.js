@@ -17,9 +17,22 @@ router.get('/', function (req, res) {
 });
 
 //vote ite route handler
+var item_id;
+
 router.get('/:id', function (req, res) {
 
-  res.send('Vote Item route handler');
+  Vote.findById({ '_id': req.params.id }, function (err, docs) {
+    if (err) {
+      throw err;
+    }
+
+    res.render('pollItem', {
+      user: req.user,
+      data: docs
+    });
+  });
+
+  //console.log(item_id);
 });
 
 module.exports = router;
