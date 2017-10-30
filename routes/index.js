@@ -68,12 +68,9 @@ router.post('/newPoll', ensureAuthenticated, function (req, res) {
       throw err;
     }
     //console.log(newVote);
-    res.redirect('/');
+    res.redirect('/polls/myPoll');
 
   });
-
-
-
 
 });
 
@@ -95,6 +92,27 @@ router.get('/myPoll', ensureAuthenticated, function(req, res) {
 
   //console.log(req.user);
 
+});
+
+//Poll item route handler
+router.get('/myPoll/:id', function (req, res) {
+  Vote.findById({ '_id': req.params.id }, function (err, docs) {
+    if (err) {
+      throw err;
+    }
+
+    //console.log(docs);    
+    res.render('pollItem', {
+      user: req.user,
+      data: docs
+    });
+    
+  });
+});
+
+//Vote option route handler
+router.post('/myPoll/:id', function (req, res) {
+  console.log(req.body.vote);
 });
 
 
