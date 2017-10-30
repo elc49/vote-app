@@ -16,7 +16,7 @@ function ensureAuthenticated(req, res, next) {
     next();
   }
 }
-
+/*
 //home route
 router.get('/', function(req, res) {
 
@@ -36,6 +36,11 @@ router.get('/', function(req, res) {
 
 });
 
+//home route vote item view route handler
+router.get(':id', function (req, res) {
+  res.send('Vote Item view');
+});
+*/
 //new poll route handler
 router.get('/newPoll', ensureAuthenticated, function(req, res) {
 
