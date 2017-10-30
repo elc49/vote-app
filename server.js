@@ -32,6 +32,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
+app.use(bodyParser.text());
 
 //Passport Init modules
 app.use(passport.initialize());
