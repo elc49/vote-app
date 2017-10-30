@@ -4,7 +4,8 @@
   $('.lead').css({
     'font-size': '3.5rem',
     'font-family': 'Ubuntu',
-    'font-weight': 200
+    'font-weight': 200,
+    'margin-top': '3rem'
   });
   $('.twitter').css({
     'font-size': '1.50rem'
@@ -31,6 +32,12 @@
   $('form').css({
     'width': '50rem',
     'margin-top': '3rem'
+  });
+
+  $('.label').css({
+    'font-family': 'Ubuntu',
+    'font-weight': 300,
+    'font-size': '2rem'
   });
 
 
