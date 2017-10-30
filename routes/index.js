@@ -1,6 +1,8 @@
 var router = require('express').Router();
 var decoder = require(process.cwd() + '/controllers/serverHandler');
-var User = require(process.cwd() + '/models/model');
+var User = require(process.cwd() + '/models/users');
+var Vote = require(process.cwd() + '/models/votes');
+var uuid = require('uuid/v4');
 
 var base64 = new decoder();
 
@@ -18,11 +20,19 @@ function ensureAuthenticated(req, res, next) {
 //home route
 router.get('/', function(req, res) {
 
-  res.render('polls', {
-    user: req.user,
+  Vote.find({}, {_id: 0, __v: 0}, function (err, docs) {
+    if (err) {
+      throw err;
+    }
 
+    //console.log(docs);
+    res.render('polls', {
+      user: req.user,
+      data: docs
+  
+    });
   });
-  //console.log(req.user);
+
 
 });
 
@@ -39,24 +49,46 @@ router.get('/newPoll', ensureAuthenticated, function(req, res) {
 //new poll post route handler
 router.post('/newPoll', ensureAuthenticated, function (req, res) {
 
-  User.findOneAndUpdate({ '_id': req.user._id }, {'options': req.body.options , 'title': req.body.title }).exec(function (err, result) {
-      if (err) {
-        throw err;
-      }
-      console.log(result);
-    });
+  var newVote = new Vote({
+    _id: uuid(),
+    created_by: req.user.username,
+    title: req.body.title,
+    options: req.body.options.split(','),
+    votes: req.body.options.split(',')
+
+  });
+
+  newVote.save(function (err) {
+    if (err) {
+      throw err;
+    }
+    //console.log(newVote);
+    res.redirect('/');
+
+  });
 
 
-  res.redirect('/');
+
+
 });
 
 //my polls route handler
 router.get('/myPoll', ensureAuthenticated, function(req, res) {
 
-  res.render('myPoll', {
-    user: req.user,
+  Vote.find({'created_by': req.user.username }, function (err, docs) {
+    if (err) {
+      throw err;
+    }
 
+    //console.log(docs);
+    res.render('myPoll', {
+      user: req.user,
+      data: docs
+  
+    });
   });
+
+  //console.log(req.user);
 
 });
 
