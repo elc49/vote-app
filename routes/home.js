@@ -3,7 +3,7 @@ var router = require('express').Router();
 
 //home Route definition
 router.get('/', function (req, res) {
-  Vote.find({}, {_id: 0, __v: 0 }, function (err, docs) {
+  Vote.find({}, { __v: 0 }, function (err, docs) {
     if (err) {
       throw err;
     }
@@ -14,6 +14,12 @@ router.get('/', function (req, res) {
       data: docs
     });
   });
+});
+
+//vote ite route handler
+router.get('/:id', function (req, res) {
+
+  res.send('Vote Item route handler');
 });
 
 module.exports = router;
