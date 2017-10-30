@@ -16,7 +16,7 @@ router.get('/', function (req, res) {
   });
 });
 
-//vote ite route handler
+//vote item route handler
 var item_id;
 
 router.get('/:id', function (req, res) {
@@ -33,6 +33,11 @@ router.get('/:id', function (req, res) {
   });
 
   //console.log(item_id);
+});
+
+//vote item post handler
+router.post('/:id', function (req, res) {
+  console.log(req.body.voteOption);
 });
 
 module.exports = router;
