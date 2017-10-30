@@ -10,7 +10,7 @@ var base64 = new decoder();
 function ensureAuthenticated(req, res, next) {
 
   if (!req.isAuthenticated()) {
-    res.redirect('/');
+    res.redirect('/polls');
   } else {
 
     next();
@@ -20,7 +20,7 @@ function ensureAuthenticated(req, res, next) {
 //home route
 router.get('/', function(req, res) {
 
-  Vote.find({}, {_id: 0, __v: 0}, function (err, docs) {
+  Vote.find({}, { __v: 0 }, function (err, docs) {
     if (err) {
       throw err;
     }
@@ -37,7 +37,7 @@ router.get('/', function(req, res) {
 });
 
 //home route vote item view route handler
-router.get(':id', function (req, res) {
+router.get('/:id', function (req, res) {
   res.send('Vote Item view');
 });
 */
