@@ -16,8 +16,7 @@ router.get('/twitter', passport.authenticate('twitter'));
 
 //twitter callback route handler
 router.get('/twitter/callback', passport.authenticate('twitter', {
-  failureRedirect: '/',
-  successRedirect: '/'
+  failureRedirect: '/'
 }), function(req, res) {
   //Success authentication, redirect home
   res.redirect('/');
