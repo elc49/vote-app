@@ -10,7 +10,7 @@ var base64 = new decoder();
 function ensureAuthenticated(req, res, next) {
 
   if (!req.isAuthenticated()) {
-    res.redirect('/polls');
+    res.redirect('/');
   } else {
 
     next();
@@ -94,8 +94,11 @@ router.get('/myPoll', ensureAuthenticated, function(req, res) {
 
 });
 
+var item_id;
+
 //Poll item route handler
-router.get('/myPoll/:id', function (req, res) {
+router.get('/myPoll/:id', ensureAuthenticated, function (req, res) {
+
   Vote.findById({ '_id': req.params.id }, function (err, docs) {
     if (err) {
       throw err;
@@ -111,8 +114,36 @@ router.get('/myPoll/:id', function (req, res) {
 });
 
 //Vote option route handler
-router.post('/myPoll/:id', function (req, res) {
-  console.log(req.body.vote);
+router.post('/myPoll/:id', ensureAuthenticated, function (req, res) {
+
+  item_id = req.params.id;
+  
+  if (req.body.addOption) {
+
+    Vote.where({ '_id': req.params.id }).findOneAndUpdate({ $push: {'votes': req.body.addOption, 'options': req.body.addOption } }).then(function () {
+      Vote.findById({ '_id': req.params.id }, function (err, doc) {
+        if (err) {
+          throw err;
+        }
+
+        //console.log(doc);
+        res.redirect('/polls/myPoll/' + item_id);
+      });
+    });
+  } else {
+
+    Vote.where({ '_id': req.params.id }).findOneAndUpdate({ $push: { 'votes': req.body.voteOption } }).then(function () {
+      Vote.findById({ '_id': req.params.id }, function (err, doc) {
+        if (err) {
+          throw err;
+        }
+  
+        //console.log(doc);
+        res.redirect('/polls/myPoll/' + item_id);
+      });
+    });
+  }
+
 });
 
 
