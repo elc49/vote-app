@@ -4,14 +4,14 @@ var router = require('express').Router();
 var passport = require('passport');
 
 
-//logout handler
+//logout route handler
 router.get('/logout', function(req, res) {
-  
+
   req.logout();
   res.redirect('/');
 });
 
-//Twitter auth route
+//Twitter auth route handler
 router.get('/twitter', passport.authenticate('twitter'));
 
 
