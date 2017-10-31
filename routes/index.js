@@ -10,6 +10,7 @@ var base64 = new decoder();
 function ensureAuthenticated(req, res, next) {
 
   if (!req.isAuthenticated()) {
+    req.flash('error_msg', 'You must be logged in to access app functionality as a user!');
     res.redirect('/');
   } else {
 
@@ -64,7 +65,7 @@ router.post('/newPoll', ensureAuthenticated, function (req, res) {
 
   if (error) {
 
-    console.log(error);
+    //console.log(error);
     res.render('newPoll', {
       error: error,
     });
@@ -89,7 +90,7 @@ router.post('/newPoll', ensureAuthenticated, function (req, res) {
 
     req.flash('success_msg', 'Opinion Poll created');
 
-    res.redirect('/polls/myPoll');
+    res.redirect('/');
   }
 
 });
