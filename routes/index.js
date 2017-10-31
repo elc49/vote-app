@@ -104,7 +104,7 @@ router.get('/myPoll/:id', ensureAuthenticated, function (req, res) {
       throw err;
     }
 
-    //console.log(docs);    
+    //console.log(docs);
     res.render('pollItem', {
       user: req.user,
       data: docs
