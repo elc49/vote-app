@@ -10,7 +10,6 @@ router.get('/', function (req, res) {
 
     //console.log(docs);
     res.render('polls', {
-      user: req.user,
       data: docs
     });
   });
@@ -29,7 +28,6 @@ router.get('/:id', function (req, res) {
     }
 
     res.render('pollItem', {
-      user: req.user,
       data: docs
     });
   });
