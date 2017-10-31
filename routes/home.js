@@ -21,6 +21,8 @@ var item_id;
 
 router.get('/:id', function (req, res) {
 
+  item_id = req.params.id;
+
   Vote.findById({ '_id': req.params.id }, function (err, docs) {
     if (err) {
       throw err;
@@ -37,7 +39,33 @@ router.get('/:id', function (req, res) {
 
 //vote item post handler
 router.post('/:id', function (req, res) {
-  console.log(req.body.voteOption);
+
+  if (req.body.addOption) {
+    Vote.where({ '_id': req.params.id }).findOneAndUpdate({ $push: {'votes': req.body.addOption, 'options': req.body.addOption } }).then(function () {
+      Vote.findById({ '_id': req.params.id }, function (err, doc) {
+        if (err) { 
+          throw err;
+        }
+
+        //console.log(doc);
+        res.redirect('/' + item_id);
+
+      });
+
+    });
+  } else {
+    Vote.where({ '_id': req.params.id }).update({ $push: { 'votes': req.body.voteOption } }).then(function () {
+      Vote.findById({ '_id': req.params.id }, function (err, doc) {
+        if (err) {
+          throw err;
+        }
+  
+        //console.log(doc);
+        res.redirect('/' + item_id);
+      });
+    });
+  }
+
 });
 
 module.exports = router;
