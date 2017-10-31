@@ -9,6 +9,17 @@
   <% if(user || !user) { %>
 
     <div class="ui container">
+
+        <% if (success_msg) { %>
+          <div class="ui green message">
+            <i class="close icon"></i>
+            <div class="header">
+              <%= success_msg %>
+            </div>
+            <!--<p>You can upvote your poll and delete the poll if you dislike it!</p>-->
+          </div>
+        <% } %>
+
         <% data.forEach(function (dataItem) { %>
           <div class="ui center aligned segment">
             <a class="item" href="/<%= dataItem._id %>">

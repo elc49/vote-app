@@ -3,6 +3,7 @@
   <% include partials/nav.ejs %>
 
     <div class="ui container">
+
         <% data.forEach(function (dataItem) { %>
           <div class="ui center aligned segment">
             <a class="item" href="/polls/myPoll/<%= dataItem._id %>">
