@@ -49,19 +49,28 @@
             <div class="ui two column stackable grid container">
                 <div class="column">
                   <div class="ui segment">
-                    <h3> <%= data.title %> </h3>
-                    <form class="ui form" method="POST" action="/<%= data._id %>">
+                    <h2 class="label"> <%= data.title %> </h2>
+                    <form class="ui form" method="POST" action="/polls/myPoll/<%= data._id %>">
                         <div class="field">
                             <select class="ui fluid dropdown" name="voteOption">
-                              <option value="" selected disabled hidden>Choose your option</option>
+                              <option selected hidden disabled value="">Choose your option</option>
                               <% data.options.forEach(function (item) { %>
-                                <option> <%= item %> </option>
-                              <% }) %>
-                            </select>
+                                <option value="<%= item %>"> <%= item %> </option>
+                              <% }) %>                              
+                            </select>                            
                           </div>
                           <button type="submit" class="ui button positive small">Vote</button>
                     </form>
                   </div>
+                  <button class="ui button tiny display-form">Add your own option</button>
+                  <form class="add ui form" action="/polls/myPoll/<%= data._id %>" method="POST">
+                    <div class="inline fields">
+                      <div class="field">
+                        <input type="text" name="addOption" placeholder="Enter your own option" />
+                      </div>
+                      <button type="submit" class="ui button small positive">Add</button>
+                    </div>
+                  </form>
                 </div>
                 <div class="column">
                   <div class="ui segment">
@@ -86,13 +95,13 @@
               <div class="ui two column stackable grid container">
                   <div class="column">
                     <div class="ui segment">
-                      <h3> <%= data.title %> </h3>
+                      <h2 class="label"> <%= data.title %> </h2>
                       <form class="ui form" method="POST" action="/<%= data._id %>">
                           <div class="field">
                               <select class="ui fluid dropdown" name="voteOption">
                                 <option value="" selected disabled hidden>Choose your option</option>
                                 <% data.options.forEach(function (item) { %>
-                                  <option> <%= item %> </option>
+                                  <option value="<%= item %>"> <%= item %> </option>
                                 <% }) %>
                               </select>
                             </div>
