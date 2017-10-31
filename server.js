@@ -9,6 +9,8 @@ var auth = require(process.cwd() + '/routes/auth-routes');
 var passportSetup = require(process.cwd() + '/config/passport');
 var passport = require('passport');
 var session = require('cookie-session');
+var expressValidator = require('express-validator');
+var flash = require('connect-flash');
 
 //Instantiate express object
 var app = express();
@@ -38,14 +40,45 @@ app.use(bodyParser.text());
 app.use(passport.initialize());
 app.use(passport.session());
 
+//Express Validator Middleware
+app.use(expressValidator({
+  errorFormatter: function (param, msg, value) {
+    var namespace = param.split('.');
+    var root = namespace.shift();
+    var formParam = root;
+
+    while(namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+
+    return {
+      param: formParam,
+      msg: msg,
+      value: value
+    };
+  }
+}));
+
+//Connect flash Middleware
+app.use(flash());
+
+//Global var config for connect-flash
+app.use(function (req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  res.locals.user = req.user || null;
+  next();
+});
+
 //Route Middleware
 app.use('/', home);
 app.use('/polls', routes);
 app.use('/auth', auth);
 
-
 //Static files Middleware
 app.use('/controllers', express.static(process.cwd() + '/controllers'));
+
 
 
 //connection to database
