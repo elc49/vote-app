@@ -44,33 +44,53 @@ router.get('/:id', function (req, res) {
 //new poll route handler
 router.get('/newPoll', ensureAuthenticated, function(req, res) {
 
-  res.render('newPoll', {
-    user: req.user,
-
-  });
+  res.render('newPoll');
 
 });
 
 //new poll post route handler
 router.post('/newPoll', ensureAuthenticated, function (req, res) {
 
-  var newVote = new Vote({
-    _id: uuid(),
-    created_by: req.user.username,
-    title: req.body.title,
-    options: req.body.options.split(','),
-    votes: req.body.options.split(',')
+  var created_by = req.user.username;
+  var title = req.body.title;
+  var options = req.body.options.split(',');
+  var votes = req.body.options.split(',');
 
-  });
+  //Validation
+  req.checkBody('title', 'Vote title should not be Empty').notEmpty();
+  req.checkBody('options', 'Vote options should not be empty').notEmpty();
 
-  newVote.save(function (err) {
-    if (err) {
-      throw err;
-    }
-    //console.log(newVote);
+  var error = req.validationErrors();
+
+  if (error) {
+
+    console.log(error);
+    res.render('newPoll', {
+      error: error,
+    });
+
+  } else {
+
+    var newVote = new Vote({
+      _id: uuid(),
+      created_by: created_by,
+      title: title,
+      options: options,
+      votes: votes
+  
+    });
+
+    newVote.save(function (err) {
+      if (err) {
+        throw err;
+      }
+      //console.log(newVote);
+    });
+
+    req.flash('success_msg', 'Opinion Poll created');
+
     res.redirect('/polls/myPoll');
-
-  });
+  }
 
 });
 
@@ -84,7 +104,6 @@ router.get('/myPoll', ensureAuthenticated, function(req, res) {
 
     //console.log(docs);
     res.render('myPoll', {
-      user: req.user,
       data: docs
   
     });
@@ -106,7 +125,6 @@ router.get('/myPoll/:id', ensureAuthenticated, function (req, res) {
 
     //console.log(docs);
     res.render('pollItem', {
-      user: req.user,
       data: docs
     });
     
