@@ -40,6 +40,9 @@ app.use(bodyParser.text());
 app.use(passport.initialize());
 app.use(passport.session());
 
+//Static files Middleware
+app.use('/controllers', express.static(process.cwd() + '/controllers'));
+
 //Express Validator Middleware
 app.use(expressValidator({
   errorFormatter: function (param, msg, value) {
@@ -75,11 +78,6 @@ app.use(function (req, res, next) {
 app.use('/', home);
 app.use('/polls', routes);
 app.use('/auth', auth);
-
-//Static files Middleware
-app.use('/controllers', express.static(process.cwd() + '/controllers'));
-
-
 
 //connection to database
 mongoose.connect(process.env.MONGO_URI, {
