@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" />
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
   </head>
   <body>
 
@@ -74,10 +75,73 @@
                 </div>
                 <div class="column">
                   <div class="ui segment">
-  
+                    <canvas id="myChart" width="400" height="400"></canvas>
+                    
                   </div>
                 </div>
               </div>
+
+              <script type="text/javascript">
+                  var ctx = document.getElementById('myChart');
+                  var castVotes = '<%= data.votes %>';
+                  var votesCasted = castVotes.split(',');
+  
+                  //Check occurence of each item in votesCasted
+                  var occurence = {};
+  
+                  for (var i = 0; i < votesCasted.length; i++) {
+                    if (typeof occurence[votesCasted[i]] == 'undefined') {
+                      occurence[votesCasted[i]] = 1;
+                    } else {
+                      occurence[votesCasted[i]]++;
+                    }
+                  }
+  
+                  dataLabel = Object.keys(occurence);
+                  dataValue = Object.keys(occurence).map(function (key) { return occurence[key]; });
+                  
+                  //console.log(occurence);
+                  //console.log(votesCasted);
+                  
+                  //Global config for chart
+                  Chart.defaults.global.layout.padding = 20;
+                  Chart.defaults.global.defaultFontFamily = 'Ubuntu';
+                  Chart.defaults.global.fontSize = 18;
+                  
+                  var myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                      labels: dataLabel,
+                      datasets: [{
+                        label: '# of votes',
+                        data: dataValue,
+                        backgroundColor: ['Sienna', 'Tomato', 'Teal', 'BurlyWood', 'Crimson', 'forestgreen', 'DarkSlateGrey', 'Brown', 'Blue', 'Black', 'HotPink', 'MediumSpringGreen','Orange']
+                      }]
+                    },
+                    options: {/*
+                      scales: {
+                        yAxes: [{
+                          ticks: {
+                            beginAtZero: true
+                          }
+                        }],
+                        xAxes: [{
+                          ticks: {
+                            beginAtZero: true
+                          }
+                        }]
+                      },*/
+                      title: {
+                        display: true,
+                        text: 'Vote result basing on Opinion Polls',
+                        fontColor: 'black',
+                      }
+                    },
+                    tooltips: {
+                      enabled: true
+                    }
+                  })
+                </script>
             
             <% } else { %>
 
@@ -111,10 +175,67 @@
                   </div>
                   <div class="column">
                     <div class="ui segment">
-    
+                      <canvas id ="myChart" width="400" height="400"></canvas>
                     </div>
                   </div>
                 </div>
+
+                <script type="text/javascript">
+                  var ctx = document.getElementById('myChart');
+                  var castVotes = '<%= data.votes %>';
+                  var votesCasted = castVotes.split(',');
+  
+                  //Check occurence of each item in votesCasted
+                  var occurence = {};
+  
+                  for (var i = 0; i < votesCasted.length; i++) {
+                    if (typeof occurence[votesCasted[i]] == 'undefined') {
+                      occurence[votesCasted[i]] = 1;
+                    } else {
+                      occurence[votesCasted[i]]++;
+                    }
+                  }
+  
+                  dataLabel = Object.keys(occurence);
+                  dataValue = Object.keys(occurence).map(function (key) { return occurence[key]; });
+                  
+                  //console.log(occurence);
+                  //console.log(votesCasted); 
+                  
+                  var myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                      labels: dataLabel,
+                      datasets: [{
+                        label: '# of votes',
+                        data: dataValue,
+                        backgroundColor: ['Sienna', 'Tomato', 'Teal', 'BurlyWood', 'Crimson', 'forestgreen', 'DarkSlateGrey', 'Brown', 'Blue', 'Black', 'HotPink', 'MediumSpringGreen','Orange']
+                      }]
+                    },
+                    options: {/*
+                      scales: {
+                        yAxes: [{
+                          ticks: {
+                            beginAtZero: true
+                          }
+                        }],
+                        xAxes: [{
+                          ticks: {
+                            beginAtZero: true
+                          }
+                        }]
+                      },*/
+                      title: {
+                        display: true,
+                        text: 'Vote result basing on Opinion Polls',
+                        fontColor: 'black',
+                      }
+                    },
+                    tooltips: {
+                      enabled: true
+                    }
+                  })
+                </script>
                 
 
               <% } %>
