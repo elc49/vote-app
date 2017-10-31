@@ -1,52 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Opinion Polling App</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" />
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-  </head>
-  <body>
+<% include partials/header.ejs %>
 
-        <!-- Nav Element -->
+<% include partials/nav.ejs %>
+
+      
 
           <% if (user) { %>
-
-            <!--Function method to decode img from database -->
             
-            <% function decode (arrayBuffer) { %>
-              <% return new Buffer (arrayBuffer || '').toString('utf8'); %>
-            <% } %>
-
-            <div class="ui menu outer">
-              <a class="item" href="/">
-                Home
-              </a>
-              <a class="item" href="/polls/newPoll">
-                New Poll
-              </a>
-              <a class="item" href="/polls/myPoll">
-                My Polls
-              </a>
-              <div class="right menu">
-                <div class ="ui pointing item link dropdown">
-                  <span><img class="ui avatar image" src=<%= decode(user.img.data) %> /></span>
-                  <i class="dropdown icon"></i>
-                  <div class="menu">
-                    <div class="header"><%= user.displayName %></div>
-                    <div class="item">
-                      <a href="/auth/logout">
-                        Logout
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <div class="ui two column stackable grid container">
                 <div class="column">
                   <div class="ui segment">
@@ -81,15 +40,15 @@
                   </div>
                 </div>
               </div>
-
+      
               <script type="text/javascript">
                   var ctx = document.getElementById('myChart');
                   var castVotes = '<%= data.votes %>';
                   var votesCasted = castVotes.split(',');
-  
+      
                   //Check occurence of each item in votesCasted
                   var occurence = {};
-  
+      
                   for (var i = 0; i < votesCasted.length; i++) {
                     if (typeof occurence[votesCasted[i]] == 'undefined') {
                       occurence[votesCasted[i]] = 1;
@@ -97,7 +56,7 @@
                       occurence[votesCasted[i]]++;
                     }
                   }
-  
+      
                   dataLabel = Object.keys(occurence);
                   dataValue = Object.keys(occurence).map(function (key) { return occurence[key]; });
                   
@@ -144,110 +103,94 @@
                   })
                 </script>
             
-            <% } else { %>
-
-              <div class="ui large menu outer">
-                <a class="item" href="/">
-                  Home
-                </a>
-                <div class="right menu">
-                  <a class="ui button positive" href="/auth/twitter">
-                    Sign In with Twitter
-                  </a>
+          <% } else { %>
+            <div class="ui two column stackable grid container">
+                <div class="column">
+                  <div class="ui segment">
+                    <h2> <%= data.title %> </h2>
+                    <form class="ui form" method="POST" action="/<%= data._id %>">
+                        <div class="field">
+                            <select class="ui fluid dropdown" name="voteOption">
+                              <option value="" selected disabled hidden>Choose your option</option>
+                              <% data.options.forEach(function (item) { %>
+                                <option value="<%= item %>"> <%= item %> </option>
+                              <% }) %>
+                            </select>
+                          </div>
+                          <button type="submit" class="ui button positive small">Vote</button>
+                          <a class="ui button primary small" href="javascript:void(0)">Share on Twitter</a>
+                    </form>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="ui segment">
+                    <canvas id ="myChart" width="400" height="400"></canvas>
+                  </div>
                 </div>
               </div>
 
-              <div class="ui two column stackable grid container">
-                  <div class="column">
-                    <div class="ui segment">
-                      <h2> <%= data.title %> </h2>
-                      <form class="ui form" method="POST" action="/<%= data._id %>">
-                          <div class="field">
-                              <select class="ui fluid dropdown" name="voteOption">
-                                <option value="" selected disabled hidden>Choose your option</option>
-                                <% data.options.forEach(function (item) { %>
-                                  <option value="<%= item %>"> <%= item %> </option>
-                                <% }) %>
-                              </select>
-                            </div>
-                            <button type="submit" class="ui button positive small">Vote</button>
-                            <a class="ui button primary small" href="javascript:void(0)">Share on Twitter</a>
-                      </form>
-                    </div>
-                  </div>
-                  <div class="column">
-                    <div class="ui segment">
-                      <canvas id ="myChart" width="400" height="400"></canvas>
-                    </div>
-                  </div>
-                </div>
+              <script type="text/javascript">
+                var ctx = document.getElementById('myChart');
+                var castVotes = '<%= data.votes %>';
+                var votesCasted = castVotes.split(',');
 
-                <script type="text/javascript">
-                  var ctx = document.getElementById('myChart');
-                  var castVotes = '<%= data.votes %>';
-                  var votesCasted = castVotes.split(',');
-  
-                  //Check occurence of each item in votesCasted
-                  var occurence = {};
-  
-                  for (var i = 0; i < votesCasted.length; i++) {
-                    if (typeof occurence[votesCasted[i]] == 'undefined') {
-                      occurence[votesCasted[i]] = 1;
-                    } else {
-                      occurence[votesCasted[i]]++;
-                    }
+                //Check occurence of each item in votesCasted
+                var occurence = {};
+
+                for (var i = 0; i < votesCasted.length; i++) {
+                  if (typeof occurence[votesCasted[i]] == 'undefined') {
+                    occurence[votesCasted[i]] = 1;
+                  } else {
+                    occurence[votesCasted[i]]++;
                   }
-  
-                  dataLabel = Object.keys(occurence);
-                  dataValue = Object.keys(occurence).map(function (key) { return occurence[key]; });
-                  
-                  //console.log(occurence);
-                  //console.log(votesCasted); 
+                }
 
-                  //Global config for chart
-                  //Chart.defaults.global.layout.padding = 20;
-                  Chart.defaults.global.defaultFontFamily = 'Ubuntu';
-                  Chart.defaults.global.fontSize = 18;
-                  
-                  var myChart = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                      labels: dataLabel,
-                      datasets: [{
-                        label: '# of votes',
-                        data: dataValue,
-                        backgroundColor: ['Sienna', 'Tomato', 'Teal', 'BurlyWood', 'Crimson', 'forestgreen', 'DarkSlateGrey', 'Brown', 'Blue', 'Black', 'HotPink', 'MediumSpringGreen','Orange']
-                      }]
-                    },
-                    options: {/*
-                      scales: {
-                        yAxes: [{
-                          ticks: {
-                            beginAtZero: true
-                          }
-                        }],
-                        xAxes: [{
-                          ticks: {
-                            beginAtZero: true
-                          }
-                        }]
-                      },*/
-                      title: {
-                        display: true,
-                        text: 'Vote result basing on Opinion Polls',
-                        fontColor: 'black',
-                      }
-                    },
-                    tooltips: {
-                      enabled: true
-                    }
-                  })
-                </script>
+                dataLabel = Object.keys(occurence);
+                dataValue = Object.keys(occurence).map(function (key) { return occurence[key]; });
                 
+                //console.log(occurence);
+                //console.log(votesCasted); 
 
-              <% } %>
+                //Global config for chart
+                //Chart.defaults.global.layout.padding = 20;
+                Chart.defaults.global.defaultFontFamily = 'Ubuntu';
+                Chart.defaults.global.fontSize = 18;
+                
+                var myChart = new Chart(ctx, {
+                  type: 'doughnut',
+                  data: {
+                    labels: dataLabel,
+                    datasets: [{
+                      label: '# of votes',
+                      data: dataValue,
+                      backgroundColor: ['Sienna', 'Tomato', 'Teal', 'BurlyWood', 'Crimson', 'forestgreen', 'DarkSlateGrey', 'Brown', 'Blue', 'Black', 'HotPink', 'MediumSpringGreen','Orange']
+                    }]
+                  },
+                  options: {/*
+                    scales: {
+                      yAxes: [{
+                        ticks: {
+                          beginAtZero: true
+                        }
+                      }],
+                      xAxes: [{
+                        ticks: {
+                          beginAtZero: true
+                        }
+                      }]
+                    },*/
+                    title: {
+                      display: true,
+                      text: 'Vote result basing on Opinion Polls',
+                      fontColor: 'black',
+                    }
+                  },
+                  tooltips: {
+                    enabled: true
+                  }
+                })
+              </script>
 
+          <% } %>
 
-    <script type="text/javascript" src="/controllers/clientHandler.js"></script>
-  </body>
-</html>
+<% include partials/footer.ejs %>
