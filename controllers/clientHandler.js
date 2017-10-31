@@ -40,5 +40,12 @@
     'font-size': '2rem'
   });
 
+  $('.add').hide();
+  
+  $('.display-form').click(function () {
+    $('.add').show();
+    $('.display-form').hide();
+  });
+
 
 })();
