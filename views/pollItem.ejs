@@ -50,7 +50,7 @@
             <div class="ui two column stackable grid container">
                 <div class="column">
                   <div class="ui segment">
-                    <h2 class="label"> <%= data.title %> </h2>
+                    <h2> <%= data.title %> </h2>
                     <form class="ui form" method="POST" action="/polls/myPoll/<%= data._id %>">
                         <div class="field">
                             <select class="ui fluid dropdown" name="voteOption">
@@ -61,6 +61,7 @@
                             </select>                            
                           </div>
                           <button type="submit" class="ui button positive small">Vote</button>
+                          <a class="ui button primary small" href="javascript:void(0)">Share on Twitter</a>
                     </form>
                   </div>
                   <button class="ui button tiny display-form">Add your own option</button>
@@ -104,7 +105,7 @@
                   //console.log(votesCasted);
                   
                   //Global config for chart
-                  Chart.defaults.global.layout.padding = 20;
+                  //Chart.defaults.global.layout.padding = 20;
                   Chart.defaults.global.defaultFontFamily = 'Ubuntu';
                   Chart.defaults.global.fontSize = 18;
                   
@@ -159,7 +160,7 @@
               <div class="ui two column stackable grid container">
                   <div class="column">
                     <div class="ui segment">
-                      <h2 class="label"> <%= data.title %> </h2>
+                      <h2> <%= data.title %> </h2>
                       <form class="ui form" method="POST" action="/<%= data._id %>">
                           <div class="field">
                               <select class="ui fluid dropdown" name="voteOption">
@@ -170,6 +171,7 @@
                               </select>
                             </div>
                             <button type="submit" class="ui button positive small">Vote</button>
+                            <a class="ui button primary small" href="javascript:void(0)">Share on Twitter</a>
                       </form>
                     </div>
                   </div>
@@ -201,6 +203,11 @@
                   
                   //console.log(occurence);
                   //console.log(votesCasted); 
+
+                  //Global config for chart
+                  //Chart.defaults.global.layout.padding = 20;
+                  Chart.defaults.global.defaultFontFamily = 'Ubuntu';
+                  Chart.defaults.global.fontSize = 18;
                   
                   var myChart = new Chart(ctx, {
                     type: 'doughnut',
