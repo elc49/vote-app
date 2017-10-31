@@ -8,7 +8,6 @@ var passport = require('passport');
 router.get('/logout', function(req, res) {
 
   req.logout();
-  req.flash('success_msg', 'You have successfully logged out!');
   res.redirect('/');
 });
 
@@ -23,7 +22,6 @@ router.get('/twitter/callback', passport.authenticate('twitter', {
 }), function(req, res) {
 
   //Success authentication, redirect home
-  req.flash('success_msg', 'Successfully logged in!');
   res.redirect('/');
 });
 
