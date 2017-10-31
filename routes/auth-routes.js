@@ -6,6 +6,7 @@ var passport = require('passport');
 
 //logout handler
 router.get('/logout', function(req, res) {
+  
   req.logout();
   res.redirect('/');
 });
@@ -16,8 +17,10 @@ router.get('/twitter', passport.authenticate('twitter'));
 
 //twitter callback route handler
 router.get('/twitter/callback', passport.authenticate('twitter', {
+
   failureRedirect: '/'
 }), function(req, res) {
+
   //Success authentication, redirect home
   res.redirect('/');
 });
