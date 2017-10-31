@@ -88,8 +88,6 @@ router.post('/newPoll', ensureAuthenticated, function (req, res) {
       //console.log(newVote);
     });
 
-    req.flash('success_msg', 'Opinion Poll created');
-
     res.redirect('/');
   }
 
