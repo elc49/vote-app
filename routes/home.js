@@ -46,22 +46,31 @@ router.post('/:id', function (req, res) {
         }
 
         //console.log(doc);
-        res.redirect('/polls/pollItem' + item_id);
+        res.redirect('/polls/myPoll/' + item_id);
 
       });
 
     });
   } else {
-    Vote.where({ '_id': req.params.id }).update({ $push: { 'votes': req.body.voteOption } }).then(function () {
-      Vote.findById({ '_id': req.params.id }, function (err, doc) {
-        if (err) {
-          throw err;
-        }
-  
-        //console.log(doc);
-        res.redirect('/' + item_id);
 
-      });
+    Vote.where({ '_id': req.params.id }).findOne(function (err, doc) {
+      if (err) {
+        throw err;
+      }
+
+      if (typeof doc.ip_address != "undefined" || doc.ip_address.length > 0) {
+        if (doc.ip_address.indexOf(req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress) > -1) {
+          res.redirect('/');
+        } else {
+          Vote.where({ '_id': req.params.id }).findOneAndUpdate({ $push: { 'votes': req.body.voteOption, 'ip_address': req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress } }, function (err, doc) {
+            if (err) {
+              throw err;
+            }
+            //console.log(doc);
+            res.redirect('/' + item_id);
+          });
+        }
+      }
     });
   }
 
