@@ -176,7 +176,7 @@ router.post('/myPoll/:id', ensureAuthenticated, function (req, res) {
 //vote item delete route handler
 router.get('/myPoll/delete/:id', ensureAuthenticated, function (req, res) {
 
-  Vote.findByIdAndRemove(req.params.id, function (err, doc) {
+  Vote.deleteOne({ '_id': req.params.id, 'created_by': req.user.username}, function (err, doc) {
     if (err) {
       throw err;
     }
