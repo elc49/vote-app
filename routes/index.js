@@ -145,6 +145,7 @@ router.post('/myPoll/:id', ensureAuthenticated, function (req, res) {
 
         //console.log(doc);
         res.redirect('/polls/myPoll/' + item_id);
+
       });
     });
   } else {
@@ -157,6 +158,7 @@ router.post('/myPoll/:id', ensureAuthenticated, function (req, res) {
   
         //console.log(doc);
         res.redirect('/polls/myPoll/' + item_id);
+
       });
     });
   }
