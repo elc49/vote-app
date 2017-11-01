@@ -19,8 +19,8 @@ passport.deserializeUser(function (id, done) {
 //Setup passport Middleware
 passport.use(
   new TwitterStrategy ({
-    consumerKey: 'U9VEjGV6DhGLDzlYklvkLgE3j',
-    consumerSecret: 'AVjtxIh9x0p54QdjDAIIqcm41TudkYoyqvJsOneML4MR6299JP',
+    consumerKey: process.env.CONSUMER_KEY,
+    consumerSecret: process.env.CONSUMER_SECRET,
     callbackURL: process.env.CALLBACK_URI
 
   }, function (token, tokenSecret, profile, done) {
