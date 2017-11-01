@@ -42,6 +42,7 @@ app.use(passport.session());
 
 //Static files Middleware
 app.use('/controllers', express.static(process.cwd() + '/controllers'));
+app.use('/assets', express.static(process.cwd() + '/assets'));
 
 //Express Validator Middleware
 app.use(expressValidator({
