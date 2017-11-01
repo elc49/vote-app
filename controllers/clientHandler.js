@@ -51,5 +51,9 @@
     $(this).closest('.message').transition('fade');
   });
 
+  $('.delete').on('click', function () {
+    $('.ui.basic.modal').modal('show');
+  });
+
 
 })();
