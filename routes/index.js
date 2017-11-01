@@ -159,7 +159,7 @@ router.post('/myPoll/:id', ensureAuthenticated, function (req, res) {
         if (doc.ip_address.indexOf(req.headers['x-forwarded-for']) > -1) {
           res.redirect('/');
         } else {
-          Vote.where({ '_id': req.params.id }).findOneAndUpdate({ $push: { 'votes': req.body.voteOption, 'ip_address': req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress } }, function (err, doc) {
+          Vote.where({ '_id': req.params.id }).findOneAndUpdate({ $push: { 'votes': req.body.voteOption, 'ip_address': req.headers['x-forwarded-for'] } }, function (err, doc) {
             if (err) {
               throw err;
             }

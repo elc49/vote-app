@@ -59,10 +59,10 @@ router.post('/:id', function (req, res) {
       }
 
       if (typeof doc.ip_address != "undefined" || doc.ip_address.length > 0) {
-        if (doc.ip_address.indexOf(req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress) > -1) {
+        if (doc.ip_address.indexOf(req.headers['x-forwarded-for']) > -1) {
           res.redirect('/');
         } else {
-          Vote.where({ '_id': req.params.id }).findOneAndUpdate({ $push: { 'votes': req.body.voteOption, 'ip_address': req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress } }, function (err, doc) {
+          Vote.where({ '_id': req.params.id }).findOneAndUpdate({ $push: { 'votes': req.body.voteOption, 'ip_address': req.headers['x-forwarded-for'] } }, function (err, doc) {
             if (err) {
               throw err;
             }
