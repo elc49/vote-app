@@ -9,7 +9,8 @@ var votesSchema = new Schema({
   time_created: { type: Date, default: Date.now },
   title: String,
   options: [String],
-  votes: [String]
+  votes: [String],
+  ip_address: [String]
 });
 
 module.exports = Vote = mongoose.model('vote', votesSchema);
