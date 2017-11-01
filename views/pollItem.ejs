@@ -35,8 +35,21 @@
                 </div>
                 <div class="column">
                   <div class="ui segment">
-                    <canvas id="myChart" width="400" height="400"></canvas>
+                    <canvas id="myChart" width="300" height="300"></canvas>
                     
+                    <button class="ui delete button negative small">Delete Poll</button>
+                      <div class="ui basic modal" method="DELETE" action="/polls/myPoll/<%= data._id %>">
+                        <div class="header">
+                          Delete Poll
+                        </div>
+                        <div class="content">
+                          <p>Are you sure you want to delete this poll?</p>
+                          <p>Remember this action is unrecoverable!</p>
+                        </div>
+                        <div class="actions">
+                          <a class="ui button small negative" href="/polls/myPoll/delete/<%= data._id %>">Delete</a>
+                        </div>
+                      </div>
                   </div>
                 </div>
               </div>
