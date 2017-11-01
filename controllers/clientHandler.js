@@ -62,5 +62,9 @@
     'margin-bottom': '2rem'
   });
 
+  $('.tweet').css({
+    'margin-top': '1rem'
+  });
+
 
 })();
