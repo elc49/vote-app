@@ -46,9 +46,7 @@ router.post('/:id', function (req, res) {
         }
 
         //console.log(doc);
-        res.render('pollItem', {
-          data: doc
-        });
+        res.redirect('/polls/pollItem' + item_id);
 
       });
 
@@ -61,10 +59,8 @@ router.post('/:id', function (req, res) {
         }
   
         //console.log(doc);
-        res.render('pollItem', {
-          data: doc
-        });
-        
+        res.redirect('/' + item_id);
+
       });
     });
   }
