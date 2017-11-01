@@ -2,10 +2,10 @@
 
   $('.outer').css('border-radius', 0);
   $('.lead').css({
-    'font-size': '3.5rem',
+    'font-size': '3.8rem',
     'font-family': 'Ubuntu',
     'font-weight': 200,
-    'margin-top': '3rem'
+    'margin-top': '2rem'
   });
   $('.twitter').css({
     'font-size': '1.50rem'
@@ -53,6 +53,13 @@
 
   $('.delete').on('click', function () {
     $('.ui.basic.modal').modal('show');
+  });
+
+  $('.lead2').css({
+    'font-family': 'Ubuntu',
+    'font-weight': 200,
+    'font-size': '2rem',
+    'margin-bottom': '2rem'
   });
 
 
