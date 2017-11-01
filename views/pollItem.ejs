@@ -20,7 +20,7 @@
                             </select>                            
                           </div>
                           <button type="submit" class="ui button positive small">Vote</button>
-                          <a class="ui button primary small" href="javascript:void(0)">Share on Twitter</a>
+                          <a class="ui button small primary" href="https://twitter.com/intent/tweet?text=Hello | Opinion Polling App&via=<%= data.created_by %>">Share on Twitter</a>
                     </form>
                   </div>
                   <button class="ui button tiny display-form">Add your own option</button>
@@ -53,6 +53,23 @@
                   </div>
                 </div>
               </div>
+
+              <script>window.twttr = (function(d, s, id) {
+                  var js, fjs = d.getElementsByTagName(s)[0],
+                    t = window.twttr || {};
+                  if (d.getElementById(id)) return t;
+                  js = d.createElement(s);
+                  js.id = id;
+                  js.src = "https://platform.twitter.com/widgets.js";
+                  fjs.parentNode.insertBefore(js, fjs);
+                
+                  t._e = [];
+                  t.ready = function(f) {
+                    t._e.push(f);
+                  };
+                
+                  return t;
+                }(document, "script", "twitter-wjs"));</script>
       
               <script type="text/javascript">
                   var ctx = document.getElementById('myChart');
