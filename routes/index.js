@@ -165,5 +165,16 @@ router.post('/myPoll/:id', ensureAuthenticated, function (req, res) {
 
 });
 
+//vote item delete route handler
+router.get('/myPoll/delete/:id', function (req, res) {
+
+  Vote.findByIdAndRemove(req.params.id, function (err, doc) {
+    if (err) {
+      throw err;
+    }
+    res.redirect('/');
+  });
+});
+
 
 module.exports = router;
