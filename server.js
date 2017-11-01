@@ -91,7 +91,7 @@ mongoose.connect(process.env.MONGO_URI, {
 mongoose.Promise = global.Promise;
 
 //Server init
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 5000;
 app.listen(port, function () {
-  console.log('Listening on port 8080');
+  console.log('Listening on port 5000');
 });
