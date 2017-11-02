@@ -54,6 +54,9 @@ router.post('/:id', function (req, res) {
   } else {
 
     Vote.where({ '_id': req.params.id }).findOne(function (err, doc) {
+      
+      item_id = req.params.id;
+
       if (err) {
         throw err;
       }
