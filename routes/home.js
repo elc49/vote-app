@@ -41,7 +41,7 @@ router.post('/:id', function (req, res) {
   if (req.body.addOption) {
     Vote.where({ '_id': req.params.id }).findOneAndUpdate({ $push: {'votes': req.body.addOption, 'options': req.body.addOption } }).then(function () {
       Vote.findById({ '_id': req.params.id }, function (err, doc) {
-        if (err) { 
+        if (err) {
           throw err;
         }
 
@@ -54,7 +54,7 @@ router.post('/:id', function (req, res) {
   } else {
 
     Vote.where({ '_id': req.params.id }).findOne(function (err, doc) {
-      
+
       item_id = req.params.id;
 
       if (err) {
